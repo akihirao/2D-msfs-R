@@ -5,7 +5,7 @@ Calculate 2D-msfs from VCF and popmap files of stacks, and summary statistics fr
 * In the output, ref homo = 0, hetero = 1, derived homo = 2 and missing = NA
 * Populaitons must be numbered from 1, for example, 1, 2, 3...
 * Missing numbers for population ID are not acceptable.
-* vcf must be created by stacks with __-p X option__. X must be the same as number of populations. If X < number of populations, some population may have 0 numbers of genotyped individuals. In such case, this script will stop
+* vcf must be created by populations softwawre of stacks with __-p X option__. X must be the same as number of populations. If X < number of populations, some population may have 0 number of genotyped individuals. In such case, this script will stop
 * 2 dimentional minor allel site frequency spectrum (2D-msfs) calculated using this R script can be used for fastsimcoal2  <http://cmpg.unibe.ch/software/fastsimcoal27/>
 * Missing data are compensated by bootstrapping within the same population
 * Utilize observed summary statistics (S, Pi, Tajima's D and pairwise FST) for confirmation of data set. These summary statistics can be used for approximate Bayesian computation.
