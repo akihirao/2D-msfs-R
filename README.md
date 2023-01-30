@@ -39,7 +39,6 @@ Example for calculation of sumstats
     infile.header <- "./output/abelia2pops187inds" # Base name of input sfs files
     outfile <- ./output/observed_sumstat_abelia2pops187inds220726.csv # Name of output csv file
     
-    
     fst.mat <- calc.fst.mat(infile.header, n.pop)
     out <- sfs2sumstat(infile.header, fst.mat)
 
