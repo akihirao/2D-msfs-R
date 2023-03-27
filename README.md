@@ -14,7 +14,7 @@ Calculate 2D-msfs from VCF and popmap files of stacks, and summary statistics fr
 Example
 ------
 Example for calculation of 2D-msfs
-
+```R
     source("r211223vcf2sfs.r")
     dir.create("./figs", showWarnings = FALSE, recursive = TRUE)
     dir.create("./output", showWarnings = FALSE, recursive = TRUE)
@@ -30,9 +30,9 @@ Example for calculation of 2D-msfs
     msfs <- gt22dmsfs(gt.filled, n.all.sites)
     write.2dmsfs.fsc(msfs, outfile.base.sfs)
     plot.2dmsfs(msfs, outfile.base.plot)
-
+```
 Example for calculation of sumstats
-
+```R
     source("r220105sfs2sumstat.r")
     
     n.pop <- 2 # Number of populations
@@ -44,4 +44,4 @@ Example for calculation of sumstats
 
     out <- as.data.frame(t(out))
     write.table(out, file = outfile, sep = ",", row.names = FALSE, quote = FALSE)
-
+```
