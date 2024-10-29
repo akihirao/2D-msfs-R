@@ -40,29 +40,39 @@ fill.missing <- function(gt, seed = 123) {
     d <- out <- gt$genotype
     pop <- gt$popmap
     n.pop <- unique(length((pop)))
+    filter_out_locus <- c() #set locus ID for excluding
     for (i in 1:nrow(d)) {
         if (any(is.na(d[i, ]))) {
             for (j in 1:n.pop) {
                 temp <- d[i, pop == j] # Extract genotypes of jth pop
                 if(any(is.na(temp))) {
-                    n.missing.ind <- sum(is.na(temp))
-                    temp <- na.omit(temp) # Remove NA
-                    n.allele <- 2*length(temp)
+                    na_count_temp <- sum(is.na(temp))
+                    n_ind_witin_pop <- length(temp)
+                    if(na_count_temp==n_ind_witin_pop){
+                        filter_out_locus <- c(filter_out_locus,i)
+                    }else{
+                        n.missing.ind <- sum(is.na(temp))
+                        temp <- na.omit(temp) # Remove NA
+                        n.allele <- 2*length(temp)
 
-                    freq.ref <- (sum(temp == 0)*2 + sum(temp == 1))/n.allele # Allele frequency of ref allele
+                        # Allele frequency of ref allele
+                        freq.ref <- (sum(temp == 0)*2 + sum(temp == 1))/n.allele
                     
-                    allele1 <- sample(c(0, 1), n.missing.ind, replace = TRUE,
+                        allele1 <- sample(c(0, 1), n.missing.ind, replace = TRUE,
                                       prob = c(freq.ref, 1-freq.ref))
-                    allele2 <- sample(c(0, 1), n.missing.ind, replace = TRUE,
+                        allele2 <- sample(c(0, 1), n.missing.ind, replace = TRUE,
                                       prob = c(freq.ref, 1-freq.ref))
                 
-                    out[i, pop == j & is.na(out[i, ])] <-
-                        allele1 + allele2
+                        out[i, pop == j & is.na(out[i, ])] <- allele1 + allele2
+                    }
                 }
             }
         }
     }
     gt$genotype <- out
+    gt$genotype <- gt$genotype[-filter_out_locus,]
+    gt$locus <- gt$locus[-filter_out_locus]
+
     return(gt)
 }
 
