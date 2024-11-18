@@ -69,10 +69,14 @@ fill.missing <- function(gt, seed = 123) {
             }
         }
     }
+    
     gt$genotype <- out
-    gt$genotype <- gt$genotype[-filter_out_locus,]
-    gt$locus <- gt$locus[-filter_out_locus]
 
+    if(length(filter_out_locus) >0){
+      gt$genotype <- gt$genotype[-filter_out_locus,]
+      gt$locus <- gt$locus[-filter_out_locus]
+    }
+    
     return(gt)
 }
 
